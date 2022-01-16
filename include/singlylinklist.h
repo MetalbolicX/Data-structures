@@ -1,5 +1,5 @@
-#ifndef _SINGLY_LINK_LIST_
-#define _SINGLY_LINK_LIST_
+#ifndef _SINGLY_LINK_LIST_H_
+#define _SINGLY_LINK_LIST_H_
 
 #include "./node.h"
 
@@ -65,4 +65,4 @@ public:
 
 };
 
-#endif // _SINGLY_LINK_LIST_
+#endif // _SINGLY_LINK_LIST_H_
