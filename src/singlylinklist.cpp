@@ -139,9 +139,7 @@ void SinglyLinkList::insert(int index, int value) {
         }
 
         // Add a new element
-        Node *newNode = new Node(value);
-        newNode->next = ptr->next;
-        ptr->next = newNode;
+        ptr->next = new Node(value, ptr->next);
         ++count;
     }
 }
@@ -262,9 +260,15 @@ int SinglyLinkList::shift() {
     // Check if the singly link list has elements
     emptyness();
 
+    int x {head->value};
+
+    if (count == 1) {
+        clear();
+        return x;
+    }
+
     Node *ptr {head};
     head = head->next;
-    int x = ptr->value;
 
     // Deletion
     delete ptr;
@@ -305,11 +309,14 @@ int SinglyLinkList::pop() {
 
     emptyness();
 
-    if (count == 1)
-        return shift();
+    int x {tail->value};
+
+    if (count == 1) {
+        clear();
+        return x;
+    }
 
     Node *ptr {nullptr};
-    int x {tail->value};
 
     // Iterate to the previous node to the last
     for (ptr = head; ptr->next != tail; ptr = ptr->next);

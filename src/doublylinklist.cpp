@@ -89,11 +89,16 @@ void DoublyLinkList::verifyIndex(int index) {
 // Add a new element at beginning of the list
 void DoublyLinkList::push(int value) {
 
-    head = new TwoWayNode(value, 0, head);
+    //head = new TwoWayNode(value, 0, head);
+    TwoWayNode *ptr = new TwoWayNode(value, NULL, head);
 
-    // When is the first element
-    if (tail == NULL)
+    if (!isEmpty()) {
+        head = ptr;
         tail = head;
+    } else {
+        head->prev = ptr;
+        head = ptr;
+    }
 
     ++count;
 }
@@ -131,6 +136,7 @@ void DoublyLinkList::insert(int index, int value) {
         }
 
         ptr->next = new TwoWayNode(value, ptr, ptr->next);
+        ptr->next->next->prev = ptr->next;
         ++count;
     }
 }
@@ -150,8 +156,9 @@ void DoublyLinkList::insertSorted(int value) {
 
         while (ptr != tail && ptr->value <= value && !(ptr->value > value))
             ptr = ptr->next;
-        
+
         ptr->prev->next = new TwoWayNode(value, ptr->prev, ptr);
+        ptr->prev = ptr->prev->next;
         ++count;
     }
 }
@@ -162,19 +169,20 @@ void DoublyLinkList::beforeValue(int previousValue, int value) {
     emptyness();
 
     // Check the first element
-    if (head->value == previousValue) {
+    if (head->value == previousValue)
         push(value);
-        return;
-    }
+    else {
 
-    TwoWayNode *ptr {head};
+        TwoWayNode *ptr {head};
 
-    while (ptr != tail && ptr->value != previousValue)
-        ptr = ptr->next;
+        while (ptr != tail && ptr->value != previousValue)
+            ptr = ptr->next;
 
-    if (ptr->value == previousValue) {
-        ptr->prev->next = new TwoWayNode(value, ptr->prev, ptr);
-        ++count;
+        if (ptr->value == previousValue) {
+            ptr->prev->next = new TwoWayNode(value, ptr->prev, ptr);
+            ptr->prev = ptr->prev->next;
+            ++count;
+        }
     }
 }
 
@@ -184,22 +192,23 @@ void DoublyLinkList::afterValue(int afterValue, int value) {
     emptyness();
 
         // There is only one element
-    if (count == 1 && head->value == afterValue) {
+    if (count == 1 && head->value == afterValue)
         append(value);
-        return;
-    }
+    else {
 
-    TwoWayNode *ptr {head};
+        TwoWayNode *ptr {head};
 
-    while (ptr != tail && ptr->value != afterValue)
-        ptr = ptr->next;
+        while (ptr != tail && ptr->value != afterValue)
+            ptr = ptr->next;
 
-    if (ptr == tail && ptr->value == afterValue)
-        append(value);
-    else if (ptr->value == afterValue) {
+        if (ptr == tail && ptr->value == afterValue)
+            append(value);
+        else if (ptr->value == afterValue) {
 
-        ptr->next = new TwoWayNode(value, ptr, ptr->next);
-        ++count;
+            ptr->next = new TwoWayNode(value, ptr, ptr->next);
+            ptr->next->next->prev = ptr->next;
+            ++count;
+        }
     }
 }
 
@@ -211,7 +220,12 @@ int DoublyLinkList::shift() {
     emptyness();
 
     TwoWayNode *ptr {head};
-    int x {head->value};
+    int x {ptr->value};
+
+    if (count == 1) {
+        clear();
+        return x;
+    }
 
     head = head->next;
 
@@ -232,6 +246,11 @@ int DoublyLinkList::pop() {
     TwoWayNode *ptr {tail};
     int x {ptr->value};
 
+    if (count == 1) {
+        clear();
+        return x;
+    }
+
     tail = tail->prev;
     tail->next = NULL;
     delete ptr;
@@ -245,7 +264,7 @@ int DoublyLinkList::Delete(int index) {
     emptyness();
     verifyIndex(index);
 
-    if (index == 0)
+    if (index == 0 || count == 1)
         return shift();
     else if (index == count-1)
         return pop();

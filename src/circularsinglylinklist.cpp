@@ -180,21 +180,21 @@ void CircularSinglyLinkList::beforeValue(int previousValue, int value) {
     emptyness();
 
     // Check the first element
-    if (head->value == previousValue) {
+    if (head->value == previousValue)
         push(value);
-        return;
-    }
+    else {
 
-    Node *ptr {head}, *temp {nullptr};
+        Node *ptr {head}, *temp {nullptr};
 
-    while (temp != tail && ptr->value != previousValue) {
-        temp = ptr;
-        ptr = ptr->next;
-    }
+        while (temp != tail && ptr->value != previousValue) {
+            temp = ptr;
+            ptr = ptr->next;
+        }
 
-    if (ptr != head) {
-        temp->next = new Node(value, ptr);
-        ++count;
+        if (ptr != head) {
+            temp->next = new Node(value, ptr);
+            ++count;
+        }
     }
 }
 
@@ -204,23 +204,23 @@ void CircularSinglyLinkList::afterValue(int afterValue, int value) {
     emptyness();
 
     // There is only one element
-    if (count == 1 && head->value == afterValue) {
+    if (count == 1 && head->value == afterValue)
         append(value);
-        return;
-    }
+    else {
 
-    Node *ptr {head}, *temp {head->next};
+        Node *ptr {head}, *temp {head->next};
 
-    while (temp != tail && ptr->value != afterValue) {
-        ptr = temp;
-        temp = temp->next;
-    }
+        while (temp != tail && ptr->value != afterValue) {
+            ptr = temp;
+            temp = temp->next;
+        }
 
-    if (temp == tail && temp->value <= afterValue)
-        append(value);
-    else if (ptr->value <= afterValue) {
-        ptr->next = new Node(value, temp);
-        ++count;
+        if (temp == tail && temp->value <= afterValue)
+            append(value);
+        else if (ptr->value <= afterValue) {
+            ptr->next = new Node(value, temp);
+            ++count;
+        }
     }
 }
 
@@ -265,9 +265,14 @@ int CircularSinglyLinkList::shift() {
     emptyness();
 
     Node *ptr {head};
+    int x {ptr->value};
+
+    if (count == 1) {
+        clear();
+        return x;
+    }
 
     head = head->next;
-    int x = ptr->value;
     tail->next = head;
     delete ptr;
     --count;
