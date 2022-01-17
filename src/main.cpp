@@ -1,13 +1,15 @@
 #include <iostream>
-#include "../include/singlylinklist.h"
+//#include "../include/singlylinklist.h"
 //#include "../include/circularsinglylinklist.h"
+#include "../include/doublylinklist.h"
 
 int main() {
 
     using std::cout;
 
-    SinglyLinkList ssl;
+    //SinglyLinkList ssl;
     //CircularSinglyLinkList ssl;
+    DoublyLinkList ssl;
 
     // Adds elements
     ssl.append(1);
@@ -18,9 +20,11 @@ int main() {
     ssl.append(4);
     ssl.append(6);
     ssl.append(10);
+    //ssl.append(10);
 
     ssl.display();
-    cout << "Data: " << ssl.remove(10) << "\n";
+    ssl.replace(3, 23, true);
+    cout << "Data erased: " << ssl.isLoop() << "\n";
 
     ssl.display();
 

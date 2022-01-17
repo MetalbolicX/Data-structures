@@ -7,7 +7,7 @@ TwoWayNode::TwoWayNode()
 
 // Overload constructor
 TwoWayNode::TwoWayNode(int data, TwoWayNode *before, TwoWayNode *after)
-    : value {data}, prev {before}, next {after} {
+    : prev {before}, next {after}, value {data} {
 }
 
 // Destructor
