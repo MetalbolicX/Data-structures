@@ -19,6 +19,7 @@ public:
     ~TwoWayNode();
 
     friend class DoublyLinkList;
+    friend class CircularDoublyLinkedList;
 };
 
 #endif // _TWO_WAY_NODE_H_
