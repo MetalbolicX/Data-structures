@@ -58,6 +58,9 @@ public:
     void replace(int oldValue, int value, bool entire = false);
     void update(int index, int value);
 
+    // Methods of search
+    TwoWayNode *search(int value);
+
 };
 
 #endif // _DOUBLY_LINK_LIST_H_

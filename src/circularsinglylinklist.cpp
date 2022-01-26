@@ -74,7 +74,7 @@ void CircularSinglyLinkList::display() {
     }
 
     Node *ptr {head};
-    cout << "Elements in the singly linked list: \n";
+    cout << "Elements in the circular singly linked list: \n";
 
     for (int i {0}; i < count; ++i) {
         cout << ptr->value << " ";
@@ -246,6 +246,7 @@ Node *CircularSinglyLinkList::search(int value) {
             ptr->next = head;
             head = ptr;
             tail->next = head;
+
             return ptr;
         }
 

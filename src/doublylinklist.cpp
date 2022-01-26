@@ -429,3 +429,32 @@ void DoublyLinkList::update(int index, int value) {
 
     ptr->value = value;
 }
+
+// Search a given value in the list
+TwoWayNode *DoublyLinkList::search(int value) {
+
+    if (head->value == value)
+        return head;
+    else if (tail->value == value)
+        return tail;
+    else {
+
+        TwoWayNode *ptr {head};
+
+        for (int i {0}; i < count; ++i) {
+
+            if (ptr->value == value) {
+                ptr->prev->next = ptr->next;
+                ptr->next->prev = ptr->prev;
+
+                ptr->next = head;
+                ptr->prev = NULL;
+                head = ptr;
+
+                return ptr;
+            }
+
+            ptr = ptr->next;
+        }
+    }
+}
