@@ -457,4 +457,6 @@ TwoWayNode *DoublyLinkList::search(int value) {
             ptr = ptr->next;
         }
     }
+
+    return NULL;
 }
