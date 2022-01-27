@@ -11,7 +11,7 @@ private:
     TwoWayNode *tail;
     int count;
 
-    // Helper methods for index
+    // Helper methods
     void verifyIndex(int index);
     void emptyness();
     void clear();
@@ -23,9 +23,14 @@ public:
     // Destructor
     ~CircularDoublyLinkedList();
 
-    // Methods
+    // Methods of descrption of the list
     bool isEmpty() const;
     void display();
+    int getCount();
+    int getHeadData();
+    int getTailData();
+    TwoWayNode *getPtrHead();
+    TwoWayNode *getPtrTail();
 
     // Methods of addition
     void push(int value);
@@ -35,33 +40,26 @@ public:
     void beforeValue(int previousValue, int value);
     void afterValue(int afterValue, int value);
 
-    // Methods of search
-    TwoWayNode *search(int value);
-
     // Methods of deletion
     int shift();
-    int Delete(int index);
     int pop();
+    int Delete(int index);
     void removeDuplicatesSorted();
     int remove(int value);
 
     // Methods of sorting
     bool checkSort();
 
-    // Methods of positioning
+    // Methods miscellaneus
     void reverse();
-
-    // For properties
-    int getCount();
-    int getHeadData();
-    int getTailData();
-    TwoWayNode *getPtrHead();
-    TwoWayNode *getPtrTail();
     bool isLoop();
 
-    // Methods of updates
+    // Methods of update
     void replace(int oldValue, int value, bool entire = false);
     void update(int index, int value);
+
+    // Methods of search
+    TwoWayNode *search(int value);
 
 };
 
